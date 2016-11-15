@@ -27,9 +27,6 @@ public with sharing class AccountTriggerHandler {
 		    req.setMethod('POST');
 		    req.setEndpoint('https://login.salesforce.com/services/oauth2/token');
 		    HttpResponse res = h.send(req);     
-		 		system.debug('res:  '+ res.getbody());
-		 		system.debug('status:  '+ res.getstatus());
-		 		system.debug('status code :  '+ res.getStatusCode());
 		    deserializeResponse resp1 = (deserializeResponse)JSON.deserialize(res.getbody(),deserializeResponse.class);
 		
 		    return resp1.access_token;
@@ -54,16 +51,11 @@ public with sharing class AccountTriggerHandler {
 		    req1.setEndpoint(endPoint );
 			if(accounts.size() == 1){
 				string n= EncodingUtil.urlEncode(accounts[0].name, 'UTF-8');
-				endpoint +=n;
-		 		system.debug('endpoint:  '+ endpoint);
-				
+				endpoint +=n;				
 		    	req1.setEndpoint(endPoint );
 		      	req1.setMethod('GET');
 		      	HttpResponse res1 = h2.send(req1); 
 		      
-		 		system.debug('res1:  '+ res1.getbody());
-		 		system.debug('status:  '+ res1.getstatus());
-		 		system.debug('status code :  '+ res1.getStatusCode());
 		     	if(res1.getbody() != null && res1.getbody() != ''){
 		      		list<account> accountReturned = (List<Account>)JSON.deserialize(res1.getbody(),List<Account>.class);
 		      		accounts[0].ext_id__c= accountReturned[0].id;
