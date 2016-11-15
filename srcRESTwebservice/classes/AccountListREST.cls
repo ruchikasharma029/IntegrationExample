@@ -6,7 +6,6 @@ global with sharing class AccountListREST {
 	@HttpGet
 	global static List<Account> getAccounts() {
 
- 		system.debug('Got here');
         RestRequest req = RestContext.request;
  		RestResponse res = RestContext.response;
         String param = req.params.get('name'); 
@@ -17,8 +16,6 @@ global with sharing class AccountListREST {
         
         }
         
-       system.debug('AccountName ' + AccountName); 
-       system.debug('req ' + req); 
 	    try {
 	    	if(AccountName == null){
 		 		query = 'Select ID, Name,phone,AccountNumber,Type,BillingStreet,BillingCity,BillingPostalCode,BillingCountry from Account limit 4000';
@@ -27,10 +24,8 @@ global with sharing class AccountListREST {
 		 		query = 'Select ID, Name,phone from Account where Name='+'\'' +AccountName +'\'' +'  Limit 1';
 
 		    }	       
-       system.debug('query ' + query); 
-				list<account> accts = database.query(query); 
-       system.debug('accts ' + accts); 
-			    return accts;
+			list<account> accts = database.query(query); 
+			return accts;
 	    } catch (exception e) {
 
 	        return null;
