@@ -4,14 +4,14 @@ public with sharing class AccountTriggerHandler {
       public String id;
       public String access_token;
     }
-	public class SendAccountUsingRESTAPI {
+	public class LoginSetup {
 
 		REST_Configuration__c config = REST_Configuration__c.getValues('Old_Org_Credentials');	   	
 		private  String clientId ;
 		private  String clientSecret ;
 		private  String username ;
 		private  String password ;
-		public String ReturnAccessToken (SendAccountUsingRESTAPI acount){
+		public String ReturnAccessToken (LoginSetup acount){
 		
 			if(config != null){
 				clientId = config.Client_Id__c;
@@ -36,7 +36,7 @@ public with sharing class AccountTriggerHandler {
 
  @future(callout=true)
 	public static void actionAfterInsert (string accountString){
-      SendAccountUsingRESTAPI token = new SendAccountUsingRESTAPI();
+      LoginSetup token = new LoginSetup();
       list<account> accounts = (List<Account>)JSON.deserialize(accountString,List<Account>.class);
       String accessToken;
       accessToken = token.ReturnAccessToken (token);
