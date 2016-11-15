@@ -17,6 +17,8 @@
 			<div id="ListviewDiv" style="display:none;" align="center">
 			
 				<apex:commandButton value="go Back"  oncomplete="DisplayOld()" />
+				<apex:commandButton value="Create New Account"      
+				action="{! urlFor($Action.Account.New, null, null, true)}" id="createNew"/>
 
 				<br />
 				<br />
