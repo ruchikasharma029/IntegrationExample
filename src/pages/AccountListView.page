@@ -1,0 +1,100 @@
+<apex:page controller="AccountsListviewExt" standardStylesheets="true" readOnly="true">
+	<apex:includeScript value="{!$Resource.jquery}" />
+	<apex:form >
+     <apex:pagemessages id="message"/>
+ 		<apex:pageBlock >
+			<div align="center" id="LoginDiv">
+				<apex:outputLabel value="UserName : " for="userName"/>
+				<apex:inputText required="true" id="userName" value="{!userName}" />
+				<br />
+				<apex:outputLabel value="Password : " for="pwd"/>
+				<apex:inputsecret id="pwd" value="{!pwd}"/>
+				<br />
+				<apex:commandButton id="getRecords" value="Get Records" action="{!fetch}" rerender="ListView,message" status="waitStatus" oncomplete="Display()" />
+				<apex:commandButton id="goBack" value="go Back" action="{!GoBack}" />
+				<apex:actionStatus startText="Requesting..." stopText="" id="waitStatus" />
+			</div>
+			<div id="ListviewDiv" style="display:none;" align="center">
+			
+				<apex:commandButton value="go Back"  oncomplete="DisplayOld()" />
+
+				<br />
+				<br />
+				<apex:outputPanel id="ListView">
+					<apex:pageBlockTable value="{!acc}" var="account" id="accTable" rowClasses="odd,even" styleClass="tableClass">
+					 
+					    <apex:column >
+					        <apex:facet name="header">Account Name</apex:facet>
+					        <apex:outputText value="{!account.name}"/>
+					    </apex:column>
+					    <apex:column >
+					        <apex:facet name="header">Account Number</apex:facet>
+					        <apex:outputText value="{!account.AccountNumber}"/>
+					    </apex:column>
+					 
+					    <apex:column >
+					        <apex:facet name="header">Account Type</apex:facet>
+					        <apex:outputText value="{!account.Type}"/>
+					    </apex:column>
+					    
+					    <apex:column >
+					        <apex:facet name="header">Billing Street</apex:facet>
+					        <apex:outputText value="{!account.BillingStreet}"/>
+					    </apex:column>
+
+					    <apex:column >
+					        <apex:facet name="header">Billing City</apex:facet>
+					        <apex:outputText value="{!account.BillingCity}"/>
+					    </apex:column>
+
+					    <apex:column >
+					        <apex:facet name="header">Billing ZipCode</apex:facet>
+					        <apex:outputText value="{!account.BillingPostalCode}"/>
+					    </apex:column>
+
+					    <apex:column >
+					        <apex:facet name="header">Billing Country</apex:facet>
+					        <apex:outputText value="{!account.BillingCountry}"/>
+					    </apex:column>
+
+					    <apex:column >
+					        <apex:facet name="header">Phone</apex:facet>
+					         <apex:outputText value="{!account.Phone}"/>
+					    </apex:column>
+					 
+					    <apex:column >
+					        <apex:facet name="header">Account Owner</apex:facet>
+					        <apex:outputText value="{!account.AccountNumber}"/>
+					    </apex:column>
+					 
+					</apex:pageBlockTable>
+					<br />
+					<br />
+	  				<div align="Center">
+			 	        <apex:panelGroup >
+						    <apex:commandLink action="{!first}" rendered="{!hasPrevious}" reRender="ListView">First | </apex:commandlink>
+						    <apex:OutputText rendered="{!NOT(hasPrevious)}">First | </apex:OutputText>
+						    <apex:commandLink action="{!previous}" rendered="{!hasPrevious}"  reRender="ListView"> Previous | </apex:commandlink>
+						    <apex:OutputText rendered="{!NOT(hasPrevious)}"> Previous | </apex:OutputText>
+						    <apex:commandLink action="{!next}" rendered="{!hasNext}"  reRender="ListView"> Next | </apex:commandlink>
+						    <apex:OutputText rendered="{!NOT(hasNext)}"> Next | </apex:OutputText>
+						    <apex:commandLink action="{!Last}" rendered="{!hasNext}"  reRender="ListView"> Last</apex:commandlink>
+						    <apex:OutputText rendered="{!NOT(hasNext)}"> Last</apex:OutputText>
+			          	</apex:panelGroup>
+	     			</div>
+				</apex:outputPanel>
+			</div>
+		</apex:pageBlock>
+	</apex:form>
+	<script>
+		function Display(){
+			$('#ListviewDiv').show();
+			$('#LoginDiv').hide();
+			$('#goBack').show();
+		}
+		function DisplayOld(){
+			$('#ListviewDiv').hide();
+			$('#LoginDiv').show();
+		}
+	</script>
+</apex:page>
