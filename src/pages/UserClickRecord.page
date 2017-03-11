@@ -1,0 +1,7 @@
+<apex:page controller="UserClickRecordsController">
+<apex:sectionHeader title=" Welcome {!$User.FirstName}" />
+	<apex:form id="theForm">
+
+		<apex:commandButton value="Click Me" id="theButton" action="{!recordUserClick}"/>	
+</apex:form>
+</apex:page>
