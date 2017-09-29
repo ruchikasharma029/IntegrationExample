@@ -5,7 +5,7 @@ trigger OpptyTrigger on Opportunity (before Insert,before Update) {
     set<Id> mAccountSet = new set<Id>();
     for(opportunity oppty: trigger.new){
         if(oppty.amount != null && Oppty.CloseDate != null){
-			opptyWithAmounts.add(oppty); 
+	    opptyWithAmounts.add(oppty); 
             mAccountSet.add(oppty.AccountId);
             if(trigger.isUpdate){
             	opportunity oldOppty = trigger.oldMap.get(oppty.Id);
